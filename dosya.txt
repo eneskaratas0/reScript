@@ -1,0 +1,15 @@
+Sunucu loglari - test verisi
+
+Baglanti kaydi: 192.168.1.1 uzerinden istek geldi.
+Ikinci sunucu: 10.0.0.254 adresinden yanit alindi.
+Gecersiz gorunen bir adres de var: 999.999.999.999 (0-255 kontrolu yapmadigimiz icin bu da eslesecek).
+
+Dosya butunluk kontrolu icin hash'ler:
+MD5 (hello): 5d41402abc4b2a76b9719d911017c592
+SHA256 (hello): 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+
+Sinir durumu testleri:
+31 karakterlik sahte hash (MD5 olarak eslesmemeli): 5d41402abc4b2a76b9719d911017c59
+40 karakterlik hex dizisi (SHA1 benzeri, MD5/SHA256 olarak eslesmemeli): aabbccddeeff00112233445566778899aabbccd
+
+Bir de metnin icine gomulu adres: baglanti(172.16.0.1) basariyla kuruldu.
