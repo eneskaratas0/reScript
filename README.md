@@ -4,7 +4,7 @@ A small Python script that uses the `re` module to extract IPv4 addresses, MD5 h
 
 ## Features
 
-- **IPv4 extraction** — matches four dot-separated groups of 1-3 digits (`\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}`). This is a lightweight pattern and does not validate the 0-255 range per octet, so strings like `999.999.999.999` are also matched.
+- **IPv4 extraction** — matches four dot-separated octets, each validated to be in the 0-255 range (e.g. `25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]`), so out-of-range strings like `999.999.999.999` are correctly rejected.
 - **MD5 extraction** — matches standalone 32-character hexadecimal strings (`\b[0-9a-fA-F]{32}\b`).
 - **SHA256 extraction** — matches standalone 64-character hexadecimal strings (`\b[0-9a-fA-F]{64}\b`).
 

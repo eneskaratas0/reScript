@@ -1,18 +1,19 @@
 import re
 
 def extract_ipv4(text):
-    ip_pattern = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
-    ip_matches = re.findall(ip_pattern, text)
+    octet = r"(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])"
+    octet_ipv4 = rf"{octet}(?:\.{octet}){{3}}"
+    ip_matches = re.findall(octet_ipv4, text)
     return ip_matches
 
 def extract_md5(text):
-    md5_pattern = r"\b[0-9a-fA-F]{32}\b"
-    md5_matches = re.findall(md5_pattern, text)
+    octet_md5 = r"\b[0-9a-fA-F]{32}\b"
+    md5_matches = re.findall(octet_md5, text)
     return md5_matches
 
 def extract_sha256(text):
-    sha256_pattern = r"\b[0-9a-fA-F]{64}\b"
-    sha256_matches = re.findall(sha256_pattern, text)
+    octet_sha256 = r"\b[0-9a-fA-F]{64}\b"
+    sha256_matches = re.findall(octet_sha256, text)
     return sha256_matches
 
 
