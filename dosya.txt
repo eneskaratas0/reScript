@@ -1,15 +1,43 @@
-Sunucu loglari - test verisi
+Guvenlik Olay Raporu - Ornek Test Verisi
+==========================================
 
-Baglanti kaydi: 192.168.1.1 uzerinden istek geldi.
-Ikinci sunucu: 10.0.0.254 adresinden yanit alindi.
-Gecersiz gorunen bir adres de var: 999.999.999.999 (0-255 kontrolu yapmadigimiz icin bu da eslesecek).
+1. Baglanti Loglari
+--------------------
+[10:02:14] Baglanti kaydi: 192.168.1.1 uzerinden istek geldi.
+[10:03:47] Ikinci sunucu: 10.0.0.254 adresinden yanit alindi.
+[10:05:02] Supheli disari giden trafik tespit edildi: 45.33.12.90
+[10:06:19] Ayni IP tekrar gorundu: 45.33.12.90 (tekrarlanan baglanti).
+[10:07:55] Ic ag adresi: 172.16.0.1 uzerinden loglama servisine erisim.
+[10:09:31] Gecersiz gorunen bir adres de var: 999.999.999.999 (0-255 kontrolu nedeniyle bu eslesmemeli).
+[10:11:08] Yedek sunucu: 8.8.8.8 DNS sorgusu icin kullanildi.
+[10:12:44] Ayni ic ag adresi tekrar: 172.16.0.1 baska bir istekte de gorundu.
 
-Dosya butunluk kontrolu icin hash'ler:
-MD5 (hello): 5d41402abc4b2a76b9719d911017c592
-SHA256 (hello): 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+2. Dosya Butunluk Kontrolleri
+------------------------------
+Supheli dosya #1 (adi: invoice.exe)
+  MD5:    5d41402abc4b2a76b9719d911017c592
+  SHA256: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 
-Sinir durumu testleri:
+Supheli dosya #2 (adi: update.dll)
+  MD5:    7d793037a0760186574b0282f2f435e7
+  SHA256: 486ea46224d1bb4fb680f34f7c9ad96a8f24ec88be73ea8e5a6c65260e9cb8a7
+
+Supheli dosya #3 (adi: payload.bin)
+  MD5:    f3f0c6e992b7562598d9865b6fe8b3a6
+  SHA256: 2f293f67aa33f2ce247b28d6fb2fef2623cfde731f96b3d7f84ae74e9e192bdd
+
+Not: invoice.exe dosyasi baska bir sistemde de tespit edildi, ayni hash tekrar gorunuyor:
+  MD5:    5d41402abc4b2a76b9719d911017c592
+  SHA256: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+
+3. Sinir Durumu Testleri
+-------------------------
 31 karakterlik sahte hash (MD5 olarak eslesmemeli): 5d41402abc4b2a76b9719d911017c59
 40 karakterlik hex dizisi (SHA1 benzeri, MD5/SHA256 olarak eslesmemeli): aabbccddeeff00112233445566778899aabbccd
+33 karakterlik fazladan uzun deger (MD5 olarak eslesmemeli): 5d41402abc4b2a76b9719d911017c5921
 
-Bir de metnin icine gomulu adres: baglanti(172.16.0.1) basariyla kuruldu.
+4. Ek Notlar
+-------------
+Analiz sirasinda su adres de gozlemlendi: baglanti(203.0.113.45) basariyla kuruldu.
+Toplamda 3 farkli dosyanin hash degeri incelendi ve 6 farkli IP adresi loglandi
+(bazilari tekrar ediyor, script'in tekillestirme mantigi bunu dogru islemeli).
