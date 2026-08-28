@@ -1,3 +1,4 @@
+import json
 import re
 
 def extract_ipv4(text):
@@ -17,12 +18,23 @@ def extract_sha256(text):
     return sha256_matches
 
 
+def dedupe(items):
+    return list(dict.fromkeys(items))
+
+
 if __name__ == "__main__":
     with open("dosya.txt", "r", encoding="utf-8") as f:
         content = f.read()
-        ipv4_matches = extract_ipv4(content)
-        md5_matches = extract_md5(content)
-        sha256_matches = extract_sha256(content)
-        print(ipv4_matches)
-        print(md5_matches)
-        print(sha256_matches)
+
+    iocs = {
+        "ip": dedupe(extract_ipv4(content)),
+        "hash": {
+            "md5": dedupe(extract_md5(content)),
+            "sha256": dedupe(extract_sha256(content)),
+        },
+    }
+
+    with open("iocs.json", "w", encoding="utf-8") as f:
+        json.dump(iocs, f, indent=2)
+
+    print("IOCs iocs.json dosyasina kaydedildi.")

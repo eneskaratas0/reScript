@@ -22,7 +22,7 @@ Place the text you want to scan in `dosya.txt` (in the same directory as `main.p
 python main.py
 ```
 
-The script prints three lists to stdout: matched IPv4 addresses, MD5 hashes, and SHA256 hashes, in that order.
+The script writes the extracted IOCs (indicators of compromise) to `iocs.json` in the same directory, deduplicated per list while preserving first-seen order.
 
 ## Example
 
@@ -34,15 +34,20 @@ MD5: 5d41402abc4b2a76b9719d911017c592
 SHA256: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
-Running `python main.py` outputs:
+Running `python main.py` produces an `iocs.json` file:
 
-```
-['192.168.1.1']
-['5d41402abc4b2a76b9719d911017c592']
-['2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824']
+```json
+{
+  "ip": ["192.168.1.1"],
+  "hash": {
+    "md5": ["5d41402abc4b2a76b9719d911017c592"],
+    "sha256": ["2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"]
+  }
+}
 ```
 
 ## Project structure
 
-- [main.py](main.py) — contains `extract_ipv4`, `extract_md5`, and `extract_sha256`, plus the script entry point that reads `dosya.txt` and prints the results.
+- [main.py](main.py) — contains `extract_ipv4`, `extract_md5`, `extract_sha256`, and `dedupe`, plus the script entry point that reads `dosya.txt` and writes `iocs.json`.
 - [dosya.txt](dosya.txt) — sample input file used for testing.
+- `iocs.json` — generated output file (git-ignored, created when the script runs).
